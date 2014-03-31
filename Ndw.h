@@ -31,8 +31,8 @@
 	
 	NDW_REQ = 1,
 	NDW_RSP = 2,
-	//NDW_A_REQ = 4,
-	//NDW_A_RSP = 8,
+	NDW_A_REQ = 4,
+	NDW_A_RSP = 8,
 	BEACON_ONBOARD = 1,
 	BEACON_NORMAL = 2,
 	BEACON_CLASS = 1,

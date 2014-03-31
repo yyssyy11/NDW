@@ -326,7 +326,7 @@
       //printfflush();
       #endif
 
-      if(ndw_recv->datatype == NDW_REQ)
+      if((ndw_recv->datatype == NDW_REQ)||(ndw_recv->datatype == NDW_A_REQ))
       {
         receive_count ++;
         energy_count --;
@@ -345,7 +345,7 @@
           return msg;
       }
 
-      if(ndw_recv->datatype == NDW_RSP)
+      if((ndw_recv->datatype == NDW_RSP)||(ndw_recv->datatype == NDW_A_RSP))
       {
         receive_count ++;
         energy_count --;
@@ -722,7 +722,10 @@
 
       ndw_send_ptr = (ndw_data_t*)call Packet.getPayload(&packet, sizeof(ndw_data_t));
       strcpy(ndw_send.name, ndw_recv->name);
-      ndw_send.datatype = NDW_RSP;
+      if(ndw_recv->datatype == NDW_A_REQ)
+        ndw_send.datatype = NDW_A_RSP;
+      else
+        ndw_send.datatype = NDW_RSP;
       strcpy(ndw_send.buf, ndw_repo.buf);
 
       memcpy(ndw_send_ptr, &ndw_send, sizeof(ndw_data_t));
@@ -755,7 +758,11 @@
       {
         ndw_send_ptr = (ndw_data_t*)call Packet.getPayload(&packet, sizeof(ndw_data_t));
         strcpy(ndw_send.name, ndw_recv->name);
-        ndw_send.datatype = NDW_RSP;
+        if(ndw_recv->datatype == NDW_A_REQ)
+          ndw_send.datatype = NDW_A_RSP;
+        else
+          ndw_send.datatype = NDW_RSP;
+        strcpy(ndw_send.buf, ndw_repo.buf);
         strcpy(ndw_send.buf, ndw_cs[i].buf);
 
         memcpy(ndw_send_ptr, &ndw_send, sizeof(ndw_data_t));
